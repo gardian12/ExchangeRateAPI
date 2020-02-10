@@ -104,7 +104,7 @@ paths:
                 code: 501
                 message: Service not implemented
         '5XX':
-          description: Server error. Please detailed return message.
+          description: Server error. Please see detailed return message.
           content:
             application/json:
               schema:
@@ -227,7 +227,7 @@ paths:
                 code: 501
                 message: Service not implemented
         '5XX':
-          description: Server error. Please detailed return message.
+          description: Server error. Please see detailed return message.
           content:
             application/json:
               schema:
@@ -290,6 +290,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ExchangeRate"
+        
     ReturnCode:
       type: object
       required:
