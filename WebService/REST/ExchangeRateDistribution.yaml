@@ -1,0 +1,303 @@
+openapi: "3.0.0"
+
+info:
+  version: 1.0.0
+  title: BMW Exchange Rate Distribution
+  license:
+    name: BMW Group property
+
+servers:
+  - url: https://github.com/gardian12/ExchangeRateAPI/v1
+
+paths:
+  /exchangerates:
+    post:
+      summary: Add exchange rates
+      operationId: addExchangeRates
+      tags:
+        - ExchangeRates
+        
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRates'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ExchangeRates'
+              
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 200
+                message: Successful operation
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 200
+                message: Successful operation
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 401
+                message: Authorization information is missing or invalid
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 401
+                message: Authorization information is missing or invalid
+        '405':
+          description: HTTP method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 405
+                message: HTTP method not allowed
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 405
+                message: HTTP method not allowed
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 500
+                message: Internal server error
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 500
+                message: Internal server error
+        '501':
+          description: Service not implemented.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 501
+                message: Service not implemented
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 501
+                message: Service not implemented
+        '5XX':
+          description: Server error. Please detailed return message.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 503
+                message: Service unavailable
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 503
+                message: Service unavailable
+                
+    put:
+      summary: Update/Overwrite exchange rates
+      operationId: updateExchangeRates
+      tags:
+        - ExchangeRates
+        
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExchangeRates'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ExchangeRates'
+
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 200
+                message: Successful operation
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 200
+                message: Successful operation
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 401
+                message: Authorization information is missing or invalid
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 401
+                message: Authorization information is missing or invalid
+        '404':
+          description: Ressource not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 404
+                message: Ressource not found
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 404
+                message: Ressource not found
+        '405':
+          description: HTTP method not allowed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 405
+                message: HTTP method not allowed
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 405
+                message: HTTP method not allowed
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 500
+                message: Internal server error
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 500
+                message: Internal server error
+        '501':
+          description: Service not implemented.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 501
+                message: Service not implemented
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 501
+                message: Service not implemented
+        '5XX':
+          description: Server error. Please detailed return message.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 503
+                message: Service unavailable
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ReturnCode"
+              example:
+                code: 503
+                message: Service unavailable
+
+components:
+  securitySchemes:
+      BasicAuth:
+        type: http
+        scheme: basic
+        
+  schemas:
+    ExchangeRate:
+      type: object
+      required:
+        - RateType
+        - CurrFrom
+        - CurrTo
+        - ValidFrom
+        - Rate
+        - RateInverse
+      properties:
+        RateType:
+          type: string
+          description: Alphanumeric code of exchange rate type defined by BMW.
+          example: EURM
+        CurrFrom:
+          type: string
+          description: ISO 4217 defined currency code. Alphabetic code valid only.
+          example: EUR
+        CurrTo:
+          type: string
+          description: ISO 4217 defined currency code. Alphabetic code valid only.
+          example: USD
+        ValidFrom:
+          type: string
+          format: date
+          description: Date as of exchange rate is valid. Referring RFC 3339, section 5.6, for example, 2017-07-21
+        Rate:
+          type: number
+          format: float
+          description: Floating point value of exchange rate (indirect quotation). 1 EUR = 1.09434 USD
+          example: 1.09434
+        RateInverse:
+          type: number
+          format: float
+          description: Floating point value of opposite exchange rate (direct quotation). 1 USD = 0.91332 EUR
+          example: 0.91332
+          
+    ExchangeRates:
+      type: array
+      items:
+        $ref: "#/components/schemas/ExchangeRate"
+    ReturnCode:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
